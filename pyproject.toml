@@ -1,0 +1,74 @@
+[tool.poetry]
+name = "pokeapi-uniandes"
+version = "0.1.0"
+description = ""
+authors = ["Juan Motta <jualopezmo@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.1"
+uvicorn = {extras = ["standard"], version = "^0.24.0.post1"}
+httpx = "^0.25.2"
+typer = {extras = ["all"], version = "^0.9.0"}
+aioredis = "^2.0.1"
+pydantic-settings = "^2.1.0"
+sqlalchemy = "^2.0.23"
+alembic = "^1.13.0"
+psycopg2-binary = "^2.9.9"
+tenacity = "^8.2.3"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+coverage = "^7.3.2"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+
+[tool.poetry.group.lint]
+optional = true
+
+[tool.poetry.group.lint.dependencies]
+black = "^23.11.0"
+isort = "^5.12.0"
+safety = "^2.3.5"
+pylint = "^3.0.2"
+ipython = "^8.18.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+branch = true
+data_file = ".coverage"
+omit = ["*/main.py", "tests/*"]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.coverage.report]
+fail_under = 90
+
+[tool.black]
+line-length = 79
+skip-string-normalization = true
+docstring-style = "google"
+
+[tool.pylint]
+max-line-length = 79
+disable = "C0103"
+
+[tool.isort]
+line_length = 88
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+sections="FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+known_local_folder = ["app"]
+
+[tool.pytest.ini_options]
+# log_cli = true
