@@ -21,6 +21,14 @@ class Settings(BaseSettings):
         - DB_NAME (str): El nombre de la base de datos.
 
         - TOTAL_NUMBER_OF_POKEMONS (int): El número total de Pokémon en la aplicación.
+
+    Properties:
+        - DB_URL (str): La URL de conexión a la base de datos PostgreSQL generada
+        a partir de los atributos de la base de datos.
+
+    Config:
+        - env_file (str): El nombre del archivo de entorno que se utilizará para
+        cargar las variables de configuración.
     """
 
     APP_NAME: str = "pokeapi"
@@ -36,6 +44,16 @@ class Settings(BaseSettings):
     DB_NAME: str = "postgres"
 
     TOTAL_NUMBER_OF_POKEMONS: int = 1017
+
+    @property
+    def DB_URL(self) -> str:  # noqa
+        return "postgresql+psycopg2://{user}:{password}@{host}:{port}/{name}".format(
+            user=self.DB_USER,
+            password=self.DB_PASSWORD,
+            host=self.DB_HOST,
+            port=self.DB_PORT,
+            name=self.DB_NAME,
+        )
 
     class Config:
         env_file = ".env"
