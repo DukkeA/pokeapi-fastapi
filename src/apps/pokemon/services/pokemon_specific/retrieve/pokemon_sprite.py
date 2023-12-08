@@ -7,10 +7,12 @@ from sqlalchemy.orm import Session
 
 from src.commons.fetch import fetch_pokemon
 
-from ...models import Pokemon, Sprite
-from ...models.sprite import SpriteType
-from ...schemas.pokemon_detailed.api import Pokemon as PokemonResponseApi
-from ...schemas.pokemon_detailed.base import PokemonSprite as PokemonSpriteBase
+from ....models import Pokemon, Sprite
+from ....models.sprite import SpriteType
+from ....schemas.pokemon_detailed.api import Pokemon as PokemonResponseApi
+from ....schemas.pokemon_detailed.base import (
+    PokemonSprite as PokemonSpriteBase,
+)
 
 
 class PokemonSpriteService:

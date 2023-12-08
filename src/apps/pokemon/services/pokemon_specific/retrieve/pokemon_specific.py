@@ -4,7 +4,7 @@ from httpx import AsyncClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session, contains_eager
 
-from ...models import (
+from ....models import (
     Ability,
     Pokemon,
     PokemonAbility,
@@ -12,12 +12,14 @@ from ...models import (
     Sprite,
     Type,
 )
-from ...schemas.pokemon_detailed.base import Pokemon as PokemonBase
-from ...schemas.pokemon_detailed.base import (
+from ....schemas.pokemon_detailed.base import Pokemon as PokemonBase
+from ....schemas.pokemon_detailed.base import (
     PokemonAbility as PokemonAbilityBase,
 )
-from ...schemas.pokemon_detailed.base import PokemonSprite as PokemonSpriteBase
-from ...schemas.pokemon_detailed.base import PokemonType as PokemonTypeBase
+from ....schemas.pokemon_detailed.base import (
+    PokemonSprite as PokemonSpriteBase,
+)
+from ....schemas.pokemon_detailed.base import PokemonType as PokemonTypeBase
 from .pokemon_ability import PokemonAbilityService
 from .pokemon_sprite import PokemonSpriteService
 from .pokemon_type import PokemonTypeService
@@ -232,7 +234,7 @@ class PokemonSpecificService:
         )
 
 
-async def get_spacific_pokemon(
+async def get_specific_pokemon(
     id: str,
     client: AsyncClient,
     session: Session,

@@ -24,3 +24,19 @@ class Pokemon(BaseModel):
     abilities: Sequence[PokemonAbility]
     types: Sequence[PokemonType]
     sprites: Sequence[PokemonSprite]
+
+
+class PokemonInput(BaseModel):
+    name: Optional[str]
+
+
+class PokemonAbilityInput(BaseModel):
+    name: Optional[str]
+
+
+class PokemonTypeInput(BaseModel):
+    name: Optional[str]
+
+
+class PokemonSpriteInput(BaseModel):
+    url: Optional[str]

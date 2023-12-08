@@ -7,9 +7,9 @@ from sqlalchemy.orm import Session
 
 from src.commons.fetch import fetch_pokemon
 
-from ...models import Ability, Pokemon, PokemonAbility
-from ...schemas.pokemon_detailed.api import Pokemon as PokemonResponseApi
-from ...schemas.pokemon_detailed.base import (
+from ....models import Ability, Pokemon, PokemonAbility
+from ....schemas.pokemon_detailed.api import Pokemon as PokemonResponseApi
+from ....schemas.pokemon_detailed.base import (
     PokemonAbility as PokemonAbilityBase,
 )
 

@@ -5,8 +5,16 @@ from sqlalchemy.orm import Session
 
 from src.lib.database.dependency import get_db
 
-from ..schemas.pokemon_detailed.base import Pokemon as PokemonResponseBase
-from ..services.pokemon_specific.pokemon_specific import get_spacific_pokemon
+from ..schemas.pokemon_detailed.base import (
+    PokemonInput,
+    PokemonAbilityInput,
+    PokemonTypeInput,
+    PokemonSpriteInput,
+    Pokemon as PokemonResponseBase,
+)
+from ..services.pokemon_specific.retrieve import (
+    get_specific_pokemon,
+)
 
 
 async def get_pokemon_detailed(
@@ -35,7 +43,43 @@ async def get_pokemon_detailed(
         o la solicitud falla.
     """
     client = request.app.requests
-    response = await get_spacific_pokemon(
+    response = await get_specific_pokemon(
         id=id, client=client, session=session
     )
     return response
+
+
+async def edit_pokemon_detailed(
+    id: str,
+    body: PokemonInput,
+    request: Request,
+    session: Session = Depends(get_db),
+) -> PokemonResponseBase:
+    ...
+
+
+async def edit_pokemon_detailed_type(
+    id: str,
+    body: PokemonInput,
+    request: Request,
+    session: Session = Depends(get_db),
+) -> PokemonResponseBase:
+    ...
+
+
+async def edit_pokemon_detailed_ability(
+    id: str,
+    body: PokemonInput,
+    request: Request,
+    session: Session = Depends(get_db),
+) -> PokemonResponseBase:
+    ...
+
+
+async def edit_pokemon_detailed_sprite(
+    id: str,
+    body: PokemonInput,
+    request: Request,
+    session: Session = Depends(get_db),
+) -> PokemonResponseBase:
+    ...
