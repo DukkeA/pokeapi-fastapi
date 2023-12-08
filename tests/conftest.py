@@ -1,12 +1,13 @@
+import pytest
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.main import app  # type: ignore
+
 from src.lib.database.base import Base
 from src.lib.database.dependency import get_db
-import pytest
+from src.main import app  # type: ignore
 from src.settings.base import settings
-from fastapi import FastAPI
 
 TEST_DATABASE_URL: str = settings.DB_URL
 main_app = app
