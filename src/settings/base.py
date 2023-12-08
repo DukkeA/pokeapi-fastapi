@@ -55,8 +55,7 @@ class Settings(BaseSettings):
             name=self.DB_NAME,
         )
 
-    class Config:
-        env_file = ".env"
+    model_config = {"env_file": ".env"}
 
 
 settings: Settings = Settings()
