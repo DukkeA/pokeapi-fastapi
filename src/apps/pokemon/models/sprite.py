@@ -9,6 +9,7 @@ from src.lib.database.mixins import (
     IsActiveMixin,
     TimestampMixin,
 )
+from typing import Optional
 
 
 class SpriteType(Enum):
@@ -22,4 +23,4 @@ class Sprite(IntegerIdMixin, TimestampMixin, IsActiveMixin, Base):
     __tablename__ = "sprites"
     pokemon_id: Mapped[int] = mapped_column(ForeignKey("pokemons.id"))
     sprite_type: Mapped[SpriteType]
-    url: Mapped[str]
+    url: Mapped[Optional[str]] = mapped_column(default=None)
