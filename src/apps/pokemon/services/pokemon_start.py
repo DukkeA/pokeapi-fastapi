@@ -12,7 +12,8 @@ from src.lib.database import get_db
 from src.settings import settings
 
 from ..models import Pokemon
-from ..schemas import PokemonGeneralApi, PokemonGeneralApiResponse
+from ..schemas.pokemon_general.api import Pokemon as PokemonApi
+from ..schemas.pokemon_general.api import PokemonResponse as PokemonResponseApi
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +65,7 @@ class PokemonStartService:
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(5))
     async def _get_from_api(
         self, offset: int, limit: int
-    ) -> PokemonGeneralApiResponse:
+    ) -> PokemonResponseApi:
         """
         Obtiene datos generales de Pokémon desde una API con reintento automático.
 
@@ -85,11 +86,11 @@ class PokemonStartService:
         pokemons = await self.client.get(
             f"https://pokeapi.co/api/v2/pokemon?offset={offset}&limit={limit}"
         )
-        return PokemonGeneralApiResponse(**pokemons.json())
+        return PokemonResponseApi(**pokemons.json())
 
     async def _update_db(
         self,
-        pokemons_from_api: List[PokemonGeneralApi],
+        pokemons_from_api: List[PokemonApi],
         pokemons_in_db: Sequence[int],
     ) -> None:
         """
@@ -115,6 +116,7 @@ class PokemonStartService:
                     updated_at=datetime.now(),
                 )  # type: ignore
             )
+            self.session.commit()
 
     async def init_pokemons(self) -> None:
         """

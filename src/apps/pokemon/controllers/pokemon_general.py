@@ -3,7 +3,9 @@ from sqlalchemy.orm import Session
 
 from src.lib.database.dependency import get_db
 
-from ..schemas import PokemonGeneralResponse
+from ..schemas.pokemon_general.base import (
+    PokemonResponse as PokemonResponseBase,
+)
 from ..services import get_general_pokemons
 
 
@@ -12,7 +14,7 @@ async def pokemon_general(
     session: Session = Depends(get_db),
     limit: int = 20,
     offset: int = 0,
-) -> PokemonGeneralResponse:
+) -> PokemonResponseBase:
     """
     Obtiene una respuesta de datos generales de Pokémon.
 
@@ -30,7 +32,7 @@ async def pokemon_general(
           los datos. El valor predeterminado es 0.
 
     Returns:
-        - PokemonGeneralResponse: Un objeto que contiene una respuesta de datos generales de Pokémon
+        - PokemonResponseBase: Un objeto que contiene una respuesta de datos generales de Pokémon
         con el número total de Pokémon, las URL siguientes y anteriores, y la lista de Pokémon en
         la página actual.
     """

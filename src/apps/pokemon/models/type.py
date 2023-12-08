@@ -1,7 +1,11 @@
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.lib.database.base import Base
-from src.lib.database.mixins import IntegerIdMixin, IsActiveMixin, TimestampMixin
+from src.lib.database.mixins import (
+    IntegerIdMixin,
+    IsActiveMixin,
+    TimestampMixin,
+)
 
 
 class Type(IntegerIdMixin, TimestampMixin, IsActiveMixin, Base):

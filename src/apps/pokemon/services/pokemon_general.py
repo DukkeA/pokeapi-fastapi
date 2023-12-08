@@ -3,12 +3,13 @@ from typing import List, Optional
 from httpx import AsyncClient
 from sqlalchemy.orm import Session
 
-from ..models.pokemon import Pokemon
-from ..schemas.pokemon_general import (
-    PokemonGeneral,
-    PokemonGeneralResponse,
-)
 from src.settings import settings
+
+from ..models.pokemon import Pokemon
+from ..schemas.pokemon_general.base import Pokemon as PokemonBase
+from ..schemas.pokemon_general.base import (
+    PokemonResponse as PokemonResponseBase,
+)
 
 
 class PokemonGeneralService:
@@ -25,9 +26,9 @@ class PokemonGeneralService:
         - session (Session): Sesión de la base de datos para ejecutar consultas.
 
     Methods:
-        - get_response(self) -> PokemonGeneralResponse: Obtiene una respuesta de
+        - get_response(self) -> PokemonResponseBase: Obtiene una respuesta de
         datos generales de Pokémon.
-        - _get_from_db(self, offset: int, limit: int, url: str) -> List[PokemonGeneral]:
+        - _get_from_db(self, offset: int, limit: int, url: str) -> List[PokemonBase]:
         Obtiene datos generales de Pokémon desde la base de datos.
         - _get_formated_next_url(self, url: str, offset: int, limit: int) -> Optional[str]:
         Obtiene la URL formateada para la página siguiente de datos de Pokémon.
@@ -41,7 +42,7 @@ class PokemonGeneralService:
 
     async def get_response(
         self, limit: int, offset: int, url: str
-    ) -> PokemonGeneralResponse:
+    ) -> PokemonResponseBase:
         """
         Obtiene una respuesta de datos generales de Pokémon.
 
@@ -56,7 +57,7 @@ class PokemonGeneralService:
             - url (str): La URL desde la cual se obtendrán los datos generales de Pokémon.
 
         Returns:
-            - PokemonGeneralResponse: Un objeto que contiene una respuesta de datos generales de Pokémon
+            - PokemonResponseBase: Un objeto que contiene una respuesta de datos generales de Pokémon
             con el número total de Pokémon, las URL siguientes y anteriores, y la lista de Pokémon en
             la página actual.
         """
@@ -67,7 +68,7 @@ class PokemonGeneralService:
         previous_url = self._get_formated_previous_url(
             url=url, offset=offset, limit=limit
         )
-        return PokemonGeneralResponse(
+        return PokemonResponseBase(
             count=settings.TOTAL_NUMBER_OF_POKEMONS,
             next=next_url,
             previous=previous_url,
@@ -76,13 +77,13 @@ class PokemonGeneralService:
 
     def _get_from_db(
         self, offset: int, limit: int, url: str
-    ) -> List[PokemonGeneral]:
+    ) -> List[PokemonBase]:
         """
         Obtiene datos generales de Pokémon desde la base de datos.
 
         Esta función realiza una consulta a la base de datos para obtener datos generales de
         Pokémon a partir de un desplazamiento (offset) y un límite (limit) especificados,
-        y los formatea en una lista de objetos `PokemonGeneral`.
+        y los formatea en una lista de objetos `PokemonBase`.
 
         Args:
             - offset (int): El desplazamiento en la lista de Pokémon a partir del cual se
@@ -91,7 +92,7 @@ class PokemonGeneralService:
             - url (str): La URL base que se utilizará para construir las URL de los Pokémon.
 
         Returns:
-            - List[PokemonGeneral]: Una lista de objetos `PokemonGeneral` que contienen datos
+            - List[PokemonBase]: Una lista de objetos `PokemonBase` que contienen datos
             generales de los Pokémon obtenidos desde la base de datos.
         """
         response = (
@@ -101,7 +102,7 @@ class PokemonGeneralService:
         )
         base_url = url.split("?")[0]
         pokemons = [
-            PokemonGeneral(
+            PokemonBase(
                 id=pokemon.pokemon_id,
                 name=pokemon.name,
                 url=f"{base_url}/{pokemon.pokemon_id}",
@@ -163,7 +164,7 @@ class PokemonGeneralService:
 
 async def get_general_pokemons(
     limit: int, offset: int, url: str, client: AsyncClient, session: Session
-) -> PokemonGeneralResponse:
+) -> PokemonResponseBase:
     """
     Obtiene datos generales de Pokémon a partir de una URL especificada.
 
@@ -179,7 +180,7 @@ async def get_general_pokemons(
         - session (Session): Sesión de base de datos para ejecutar consultas.
 
     Returns:
-        - PokemonGeneralResponse: Un objeto que contiene los datos generales de los Pokémon obtenidos.
+        - PokemonResponseBase: Un objeto que contiene los datos generales de los Pokémon obtenidos.
     """
     service = PokemonGeneralService(client=client, session=session)
     response = await service.get_response(limit=limit, offset=offset, url=url)

@@ -4,7 +4,11 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.lib.database.base import Base
-from src.lib.database.mixins import IntegerIdMixin, IsActiveMixin, TimestampMixin
+from src.lib.database.mixins import (
+    IntegerIdMixin,
+    IsActiveMixin,
+    TimestampMixin,
+)
 
 if TYPE_CHECKING:
     from . import Ability, Type

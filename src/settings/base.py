@@ -1,5 +1,6 @@
-from pydantic_settings import BaseSettings
 from typing import Literal
+
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -22,17 +23,17 @@ class Settings(BaseSettings):
         - TOTAL_NUMBER_OF_POKEMONS (int): El número total de Pokémon en la aplicación.
     """
 
-    APP_NAME: str = 'pokeapi'
-    APP_VERSION: str = '0.0.1'
-    APP_ENVIRONMENT: str = 'dev'
+    APP_NAME: str = "pokeapi"
+    APP_VERSION: str = "0.0.1"
+    APP_ENVIRONMENT: str = "dev"
     DEBUG: bool = False
-    LOG_LEVEL: Literal['DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL'] = 'INFO'
+    LOG_LEVEL: Literal["DEBUG", "INFO", "WARN", "ERROR", "CRITICAL"] = "INFO"
 
-    DB_USER: str = 'postgres'
-    DB_PASSWORD: str = 'postgres'
-    DB_HOST: str = 'localhost'
+    DB_USER: str = "postgres"
+    DB_PASSWORD: str = "postgres"
+    DB_HOST: str = "localhost"
     DB_PORT: int = 5432
-    DB_NAME: str = 'postgres'
+    DB_NAME: str = "postgres"
 
     TOTAL_NUMBER_OF_POKEMONS: int = 1017
 
