@@ -14,7 +14,6 @@ class PokemonType(BaseModel):
 
 
 class PokemonSprite(BaseModel):
-    id: int
     type: str
     url: str
 
