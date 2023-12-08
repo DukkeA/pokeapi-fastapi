@@ -1,2 +1,2 @@
-from .pokemon_detailed import pokemon_detailed
-from .pokemon_general import pokemon_general
+from .pokemon_detailed import get_pokemon_detailed  # type: ignore
+from .pokemon_general import get_pokemon_general  # type: ignore

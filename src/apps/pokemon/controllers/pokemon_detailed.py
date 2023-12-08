@@ -9,7 +9,7 @@ from ..schemas.pokemon_detailed.base import Pokemon as PokemonResponseBase
 from ..services.pokemon_specific.pokemon_specific import get_spacific_pokemon
 
 
-async def pokemon_detailed(
+async def get_pokemon_detailed(
     id: str, request: Request, session: Session = Depends(get_db)
 ) -> Optional[PokemonResponseBase]:
     """

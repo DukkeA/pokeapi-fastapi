@@ -9,7 +9,7 @@ from ..schemas.pokemon_general.base import (
 from ..services import get_general_pokemons
 
 
-async def pokemon_general(
+async def get_pokemon_general(
     request: Request,
     session: Session = Depends(get_db),
     limit: int = 20,
