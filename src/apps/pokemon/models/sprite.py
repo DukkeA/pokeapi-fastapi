@@ -12,7 +12,10 @@ from src.lib.database.mixins import (
 
 
 class SpriteType(Enum):
-    BACK_DEFAULT = "back_default"
+    DEFAULT = "default"
+    DREAM_WORLD = "dream_world"
+    HOME = "home"
+    OFFICIAL_ARTWORK = "official-artwork"
 
 
 class Sprite(IntegerIdMixin, TimestampMixin, IsActiveMixin, Base):
