@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Optional
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
@@ -9,7 +10,6 @@ from src.lib.database.mixins import (
     IsActiveMixin,
     TimestampMixin,
 )
-from typing import Optional
 
 
 class SpriteType(Enum):

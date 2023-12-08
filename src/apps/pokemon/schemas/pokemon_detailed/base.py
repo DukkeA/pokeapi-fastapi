@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Optional, Sequence
 
 from pydantic import BaseModel
 
@@ -15,7 +15,7 @@ class PokemonType(BaseModel):
 
 class PokemonSprite(BaseModel):
     type: str
-    url: str
+    url: Optional[str]
 
 
 class Pokemon(BaseModel):

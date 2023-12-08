@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from src.lib.database.dependency import get_db
 
 from ..schemas.pokemon_detailed.base import Pokemon as PokemonResponseBase
-from ..services.pokemon_specific import get_spacific_pokemon
+from ..services.pokemon_specific.pokemon_specific import get_spacific_pokemon
 
 
 async def pokemon_detailed(
