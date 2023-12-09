@@ -3,7 +3,7 @@ services:
   poke-api:
     build:
       context: ../../.
-      dockerfile: Dockerfile
+      dockerfile: ./compose/base/Dockerfile
     container_name: poke_api
     env_file:
       - ../../.env
