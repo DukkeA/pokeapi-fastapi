@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from typing import Optional, Sequence, Union
 
 from pydantic import BaseModel
 
@@ -26,17 +26,13 @@ class Pokemon(BaseModel):
     sprites: Sequence[PokemonSprite]
 
 
+class PokemonSpriteInput(BaseModel):
+    type: str
+    url: Optional[str]
+
+
 class PokemonInput(BaseModel):
     name: Optional[str]
-
-
-class PokemonAbilityInput(BaseModel):
-    name: Optional[str]
-
-
-class PokemonTypeInput(BaseModel):
-    name: Optional[str]
-
-
-class PokemonSpriteInput(BaseModel):
-    url: Optional[str]
+    abilities: Optional[Union[Sequence[int], Sequence[str]]]
+    types: Optional[Union[Sequence[int], Sequence[str]]]
+    sprites: Optional[Sequence[PokemonSpriteInput]]

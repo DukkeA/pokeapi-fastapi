@@ -7,9 +7,6 @@ from src.lib.database.dependency import get_db
 
 from ..schemas.pokemon_detailed.base.pokemon import (
     PokemonInput,
-    PokemonAbilityInput,
-    PokemonTypeInput,
-    PokemonSpriteInput,
     Pokemon as PokemonResponseBase,
 )
 from ..services.pokemon_specific.retrieve import (
@@ -49,34 +46,7 @@ async def get_pokemon_detailed(
     return response
 
 
-async def edit_pokemon_detailed(
-    id: str,
-    body: PokemonInput,
-    request: Request,
-    session: Session = Depends(get_db),
-) -> PokemonResponseBase:
-    ...
-
-
-async def edit_pokemon_detailed_type(
-    id: str,
-    body: PokemonInput,
-    request: Request,
-    session: Session = Depends(get_db),
-) -> PokemonResponseBase:
-    ...
-
-
-async def edit_pokemon_detailed_ability(
-    id: str,
-    body: PokemonInput,
-    request: Request,
-    session: Session = Depends(get_db),
-) -> PokemonResponseBase:
-    ...
-
-
-async def edit_pokemon_detailed_sprite(
+async def update_pokemon_detailed(
     id: str,
     body: PokemonInput,
     request: Request,
