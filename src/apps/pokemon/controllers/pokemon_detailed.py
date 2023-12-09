@@ -12,6 +12,7 @@ from ..schemas.pokemon_detailed.base.pokemon import (
 from ..services.pokemon_specific.retrieve import (
     get_specific_pokemon,
 )
+from ..services.pokemon_specific.update import update_specific_pokemon
 
 
 async def get_pokemon_detailed(
@@ -52,4 +53,28 @@ async def update_pokemon_detailed(
     request: Request,
     session: Session = Depends(get_db),
 ) -> PokemonResponseBase:
-    ...
+    """
+    Actualiza los detalles de un Pokémon específico.
+
+    Esta función toma como entrada el ID del Pokémon a actualizar, los nuevos
+    detalles proporcionados en el cuerpo (body),la solicitud (request) y una sesión
+    de base de datos (session) como dependencia. Luego, utiliza la dependencia 'get_db'
+    para obtener una sesión de base de datos.
+
+    Args:
+        - id (str): El ID del Pokémon a actualizar.
+        - body (PokemonInput): Los nuevos detalles del Pokémon proporcionados en
+        el cuerpo de la solicitud.
+        - request (Request): El objeto de solicitud de FastAPI.
+        - session (Session, opcional): La sesión de base de datos obtenida a
+        través de 'get_db'.
+
+    Returns:
+        - PokemonResponseBase: Un objeto que contiene la respuesta de la actualización
+        del Pokémon.
+    """
+    client = request.app.requests
+    response = await update_specific_pokemon(
+        id=id, body=body, client=client, session=session
+    )
+    return response
