@@ -143,4 +143,4 @@ La estructura del body de la peticion debe ser
     ]
 }
 ```
-**El metodo put edita todo el registro con laminformación suministrada**
+**El metodo put edita todo el registro con la información suministrada**
