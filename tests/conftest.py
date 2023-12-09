@@ -60,5 +60,5 @@ def client(app: FastAPI, db_session: SessionTesting):  # type: ignore
             db_session.close()
 
     app.dependency_overrides[get_db] = _get_test_db
-    with TestClient(app) as client:
+    with TestClient(app, raise_server_exceptions=False) as client:
         yield client

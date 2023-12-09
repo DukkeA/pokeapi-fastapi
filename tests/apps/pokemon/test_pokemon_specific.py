@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+import json
 
 
 def test_pokemon_specific_base_by_id(client: TestClient) -> None:
@@ -120,6 +121,137 @@ def test_pokemon_specific_not_found(client: TestClient) -> None:
     en tales casos.
     """
     response = client.get("/api/v1/pokemon/2000")
+    assert response.status_code == 400
+    data = response.json()
+    assert data["message"] == "Pokemon 2000 no encontrado."
+
+
+def test_pokemon_specific_update_with_ids(client: TestClient) -> None:
+    response = client.put(
+        "/api/v1/pokemon/1",
+        json={
+            "name": "test",
+            "abilities": [1],
+            "types": [1],
+            "sprites": [{"type": "default", "url": "www.google1.com"}],
+        },
+    )
     assert response.status_code == 200
     data = response.json()
-    assert data == None
+    assert data["name"] == "test"
+    assert data["abilities"] == [{"id": 1, "name": "stench"}]
+    assert data["types"] == [{"id": 1, "name": "normal"}]
+    assert data["sprites"] == [{"type": "default", "url": "www.google1.com"}]
+
+
+def test_pokemon_specific_update_with_names(client: TestClient) -> None:
+    """
+    Prueba la actualización específica de un Pokémon utilizando nombres en lugar de IDs.
+
+    Esta prueba verifica que la API pueda procesar correctamente las solicitudes de
+    actualización de un Pokémon utilizando nombres en lugar de IDs.
+
+    En resumen, esta prueba garantiza que la API funcione correctamente al procesar
+    solicitudes de actualización de Pokémon utilizando nombres en lugar de IDs y que
+    los datos se actualicen correctamente en la base de datos y se devuelvan en la
+    respuesta.
+    """
+    response = client.put(
+        "/api/v1/pokemon/1",
+        json={
+            "name": "test",
+            "abilities": ["stench"],
+            "types": ["normal"],
+            "sprites": [{"type": "default", "url": "www.google1.com"}],
+        },
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["name"] == "test"
+    assert data["abilities"] == [{"id": 1, "name": "stench"}]
+    assert data["types"] == [{"id": 1, "name": "normal"}]
+    assert data["sprites"] == [{"type": "default", "url": "www.google1.com"}]
+
+
+def test_pokemon_specific_update_with_invalid_ability(
+    client: TestClient,
+) -> None:
+    """
+    Prueba la actualización específica de un Pokémon con una habilidad inválida.
+
+    Esta prueba verifica que la API maneje correctamente las solicitudes de actualización
+    de un Pokémon cuando se proporciona una habilidad inválida (ID de habilidad no existente).
+
+    En resumen, esta prueba garantiza que la API maneje adecuadamente las solicitudes de actualización
+    de Pokémon con habilidades inválidas y que devuelva un mensaje de error descriptivo en caso de que
+    se proporcione una habilidad que no existe en la base de datos.
+    """
+    response = client.put(
+        "/api/v1/pokemon/1",
+        json={
+            "name": "test",
+            "abilities": [100000],
+            "types": [1],
+            "sprites": [{"type": "default", "url": "www.google1.com"}],
+        },
+    )
+    assert response.status_code == 400
+    data = response.json()
+    assert data["message"] == "Habilidad 100000 no encontrada."
+
+
+def test_pokemon_specific_update_with_invalid_type(
+    client: TestClient,
+) -> None:
+    """
+    Prueba la actualización específica de un Pokémon con un tipo inválido.
+
+    Esta prueba verifica que la API maneje correctamente las solicitudes de actualización
+    de un Pokémon cuando se proporciona un tipo inválido (ID de tipo no existente).
+
+    En resumen, esta prueba garantiza que la API maneje adecuadamente las solicitudes de actualización
+    de Pokémon con tipos inválidos y que devuelva un mensaje de error descriptivo en caso de que se
+    proporcione un tipo que no existe en la base de datos.
+    """
+    response = client.put(
+        "/api/v1/pokemon/1",
+        json={
+            "name": "test",
+            "abilities": [1],
+            "types": [100000],
+            "sprites": [{"type": "default", "url": "www.google1.com"}],
+        },
+    )
+    assert response.status_code == 400
+    data = response.json()
+    assert data["message"] == "Tipo 100000 no encontrada."
+
+
+def test_pokemon_specific_update_with_invalid_sprite_type(
+    client: TestClient,
+) -> None:
+    """
+    Prueba la actualización específica de un Pokémon con un tipo de sprite inválido.
+
+    Esta prueba verifica que la API maneje correctamente las solicitudes de actualización
+    de un Pokémon cuando se proporciona un tipo de sprite inválido.
+
+    En resumen, esta prueba garantiza que la API maneje adecuadamente las solicitudes de actualización
+    de Pokémon con tipos de sprite inválidos y que devuelva un mensaje de error descriptivo en caso de
+    que se proporcione un tipo de sprite que no esté en la lista permitida.
+    """
+    response = client.put(
+        "/api/v1/pokemon/1",
+        json={
+            "name": "test",
+            "abilities": [1],
+            "types": [1],
+            "sprites": [{"type": "test", "url": "www.google1.com"}],
+        },
+    )
+    assert response.status_code == 400
+    data = response.json()
+    assert (
+        data["message"]
+        == "enum input should be 'default', 'dream_world', 'home' or 'official-artwork'"
+    )
