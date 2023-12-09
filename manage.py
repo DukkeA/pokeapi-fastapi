@@ -6,7 +6,7 @@ app = typer.Typer()
 
 @app.command()
 def runserver(name: str):
-    uvicorn.run("src.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("src.main:app", host="0.0.0.0", port=8000, reload=True)  # type: ignore
 
 
 if __name__ == "__main__":
