@@ -12,14 +12,16 @@ from ....models import (
     Sprite,
     Type,
 )
-from ....schemas.pokemon_detailed.base import Pokemon as PokemonBase
-from ....schemas.pokemon_detailed.base import (
+from ....schemas.pokemon_detailed.base.pokemon import Pokemon as PokemonBase
+from ....schemas.pokemon_detailed.base.pokemon import (
     PokemonAbility as PokemonAbilityBase,
 )
-from ....schemas.pokemon_detailed.base import (
+from ....schemas.pokemon_detailed.base.pokemon import (
     PokemonSprite as PokemonSpriteBase,
 )
-from ....schemas.pokemon_detailed.base import PokemonType as PokemonTypeBase
+from ....schemas.pokemon_detailed.base.pokemon import (
+    PokemonType as PokemonTypeBase,
+)
 from .pokemon_ability import PokemonAbilityService
 from .pokemon_sprite import PokemonSpriteService
 from .pokemon_type import PokemonTypeService

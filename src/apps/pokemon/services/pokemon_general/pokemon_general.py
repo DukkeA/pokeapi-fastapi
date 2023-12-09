@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 from src.settings import settings
 
 from ...models.pokemon import Pokemon
-from ...schemas.pokemon_general.base import Pokemon as PokemonBase
-from ...schemas.pokemon_general.base import (
+from ...schemas.pokemon_general.base.pokemon import Pokemon as PokemonBase
+from ...schemas.pokemon_general.base.pokemon import (
     PokemonResponse as PokemonResponseBase,
 )
 

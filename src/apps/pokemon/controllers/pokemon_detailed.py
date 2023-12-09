@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from src.lib.database.dependency import get_db
 
-from ..schemas.pokemon_detailed.base import (
+from ..schemas.pokemon_detailed.base.pokemon import (
     PokemonInput,
     PokemonAbilityInput,
     PokemonTypeInput,

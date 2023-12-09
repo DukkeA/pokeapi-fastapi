@@ -12,8 +12,10 @@ from src.lib.database import get_db
 from src.settings import settings
 
 from ..models import Pokemon
-from ..schemas.pokemon_general.api import Pokemon as PokemonApi
-from ..schemas.pokemon_general.api import PokemonResponse as PokemonResponseApi
+from ..schemas.pokemon_general.api.pokemon import Pokemon as PokemonApi
+from ..schemas.pokemon_general.api.pokemon import (
+    PokemonResponse as PokemonResponseApi,
+)
 
 logger = logging.getLogger(__name__)
 

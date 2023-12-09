@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from src.lib.database.dependency import get_db
 
-from ..schemas.pokemon_general.base import (
+from ..schemas.pokemon_general.base.pokemon import (
     PokemonResponse as PokemonResponseBase,
 )
 from ..services import get_general_pokemons
