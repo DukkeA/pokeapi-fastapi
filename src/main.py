@@ -8,6 +8,7 @@ from src.lib.logger import setup_logging
 from src.routes import router
 from src.settings import settings
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 
 
 @asynccontextmanager
@@ -45,4 +46,14 @@ async def exception_handler(request: Request, exc: Exception):
     return JSONResponse(
         status_code=400,
         content={"message": str(exc)},
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def exception_handler1(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=400,
+        content={
+            "message": f"""{exc.errors()[0].get("type")} {exc.errors()[0].get("msg").lower()}"""
+        },
     )
