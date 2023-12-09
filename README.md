@@ -108,3 +108,39 @@ docker exec poke_api alembic upgrade head
 ```
 docker-compose -f compose/tests/docker-compose.yml up --build -d
 ```
+
+## Endpoints
+
+### Endpoint listado general de pokemons paginado
+```
+GET http://localhost:8000/api/v1/pokemon?offset=0&limit=20
+```
+Parametros:
+* offset (int): posicion de inicio de la consulta
+* limit (int): Numero maximo de items por consulta
+
+### Endpoint detalle de pokemon
+```
+GET http://localhost:8000/api/v1/pokemon/{id o nombre}
+```
+
+### Endpoint edicion de pokemon
+```
+PUT http://localhost:8000/api/v1/pokemon/{id o nombre}
+```
+
+La estructura del body de la peticion debe ser
+```
+{
+    "name": "nombre a editar",
+    "abilities": ["id o nombre de la habilidad en ingles"],
+    "types": ["id o nombre del tipo en ingles"],
+    "sprites": [
+        {
+            "type": "slug del typo 'default', 'dream_world', 'home', 'official-artwork'",
+            "url": "url a editar"
+        }
+    ]
+}
+```
+**El metodo put edita todo el registro con laminformación suministrada**
