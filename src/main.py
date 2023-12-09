@@ -1,12 +1,13 @@
 from contextlib import asynccontextmanager
 
 import httpx
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 from src.apps.pokemon.services import init_pokemons
 from src.lib.logger import setup_logging
 from src.routes import router
 from src.settings import settings
+from fastapi.responses import JSONResponse
 
 
 @asynccontextmanager
@@ -37,3 +38,11 @@ app: FastAPI = FastAPI(
 )
 
 app.include_router(router)
+
+
+@app.exception_handler(Exception)
+async def exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=400,
+        content={"message": str(exc)},
+    )

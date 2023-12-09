@@ -91,7 +91,7 @@ class PokemonSpecificUpdateService:
             query = query.filter(Pokemon.name == id)
         result = self.session.execute(query).scalars().first()
         if not result:
-            raise Exception('Pokemon not found')
+            raise Exception('Pokemon no encontrado.')
         return result
 
     def _get_ability_from_db(self, id: str) -> Optional[Ability]:
@@ -170,13 +170,18 @@ class PokemonSpecificUpdateService:
         for ability in abilities:
             ability_from_db = self._get_ability_from_db(id=str(ability))
             if not ability_from_db:
-                ability_from_api = await fetch_ability(
-                    client=self.client,
-                    id=ability,
-                    response_class=AbilityApiResponse,
-                )
+                try:
+                    ability_from_api = await fetch_ability(
+                        client=self.client,
+                        id=ability,
+                        response_class=AbilityApiResponse,
+                    )
+                except Exception as e:
+                    raise Exception(
+                        f'Habilidad {ability} no encontrada.'
+                    ) from e
                 if not ability_from_api:
-                    raise Exception('Ability not found')
+                    raise Exception(f'Habilidad {ability} no encontrada.')
                 ability_from_db = Ability(
                     name=ability_from_api.name,
                     internal_id=ability_from_api.id,
@@ -235,13 +240,16 @@ class PokemonSpecificUpdateService:
         for _type in types:
             type_from_db = self._get_type_from_db(id=str(_type))
             if not type_from_db:
-                type_from_api = await fetch_type(
-                    client=self.client,
-                    id=_type,
-                    response_class=TypeApiResponse,
-                )
+                try:
+                    type_from_api = await fetch_type(
+                        client=self.client,
+                        id=_type,
+                        response_class=TypeApiResponse,
+                    )
+                except Exception as e:
+                    raise Exception(f'Tipo {_type} no encontrada.') from e
                 if not type_from_api:
-                    raise Exception('Type not found')
+                    raise Exception(f'Tipo {_type} no encontrada.')
                 type_from_db = Type(
                     name=type_from_api.name,
                     internal_id=type_from_api.id,

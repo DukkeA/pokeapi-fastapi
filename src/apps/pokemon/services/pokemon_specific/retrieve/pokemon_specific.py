@@ -207,7 +207,7 @@ class PokemonSpecificService:
         """
         pokemon = self._get_pokemon_base(id)
         if not pokemon:
-            return None
+            raise Exception(f"Pokemon {id} no encontrado.")
         abilities = self._get_pokemon_abilities(pokemon.id)
         if not abilities:
             service = PokemonAbilityService(

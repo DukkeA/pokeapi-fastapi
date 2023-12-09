@@ -6,7 +6,7 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 T = TypeVar("T")
 
 
-@retry(stop=stop_after_attempt(3), wait=wait_fixed(5))
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
 async def fetch_pokemon(
     client: AsyncClient, id: Union[int, str], response_class: T
 ) -> T:
@@ -34,7 +34,7 @@ async def fetch_pokemon(
     return response_class(**response.json())  # type: ignore
 
 
-@retry(stop=stop_after_attempt(3), wait=wait_fixed(5))
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
 async def fetch_ability(
     client: AsyncClient, id: Union[int, str], response_class: T
 ) -> T:
@@ -62,7 +62,7 @@ async def fetch_ability(
     return response_class(**response.json())  # type: ignore
 
 
-@retry(stop=stop_after_attempt(3), wait=wait_fixed(5))
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
 async def fetch_type(
     client: AsyncClient, id: Union[int, str], response_class: T
 ) -> T:
