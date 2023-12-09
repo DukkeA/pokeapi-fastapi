@@ -1,6 +1,7 @@
 from typing import Optional, Sequence, Union
 
 from pydantic import BaseModel
+from ....models.sprite import SpriteType
 
 
 class PokemonAbility(BaseModel):
@@ -27,7 +28,7 @@ class Pokemon(BaseModel):
 
 
 class PokemonSpriteInput(BaseModel):
-    type: str
+    type: SpriteType
     url: Optional[str]
 
 
