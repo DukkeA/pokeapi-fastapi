@@ -1,5 +1,4 @@
 from fastapi.testclient import TestClient
-import json
 
 
 def test_pokemon_specific_base_by_id(client: TestClient) -> None:
