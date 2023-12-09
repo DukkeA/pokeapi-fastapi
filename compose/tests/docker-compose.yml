@@ -1,0 +1,21 @@
+version: '3'
+services:
+  poke-api:
+    build:
+      context: ../../.
+      dockerfile: ./compose/tests/Dockerfile
+    container_name: poke_api
+    env_file:
+      - ../../.env
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=test
+      - POSTGRES_DB=pokemon_db

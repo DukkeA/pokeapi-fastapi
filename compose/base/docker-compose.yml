@@ -1,0 +1,13 @@
+version: '3'
+services:
+  poke-api:
+    build:
+      context: ../../.
+      dockerfile: Dockerfile
+    container_name: poke_api
+    env_file:
+      - ../../.env
+    extra_hosts:
+      - "localhost:host-gateway"
+    ports:
+      - 8000:8000
