@@ -60,7 +60,11 @@ poetry run python3 manage.py migrate
 #### 3. Inicializar servicio
 El servicio por defecto se inicia en el puerto 8000, para cambiar dicho puerto se debe editar la variable de entorno
 ```
+# Opcion 1
 poetry run python3 manage.py runserver
+
+# Opcion 2
+poetry run uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 #### 1. Ejecutar tests
 ```
@@ -86,7 +90,11 @@ python3 manage.py migrate
 #### 3. Inicializar servicio
 El servicio por defecto se inicia en el puerto 8000, para cambiar dicho puerto se debe editar la variable de entorno
 ```
+# Opcion 1
 python3 manage.py runserver
+
+# Opcion 2
+uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 #### 1. Ejecutar tests
 ```
