@@ -38,6 +38,8 @@ DB_NAME=
 
 ## Uso
 
+**Los comandos listados estan diseñados para correr en sistemas operativos OSX y Linux, para su uso en windows pueden diferir ligeramente**
+
 Para comenzar a utilizar la PokeAPI, sigue estos pasos:
 
 ### Poetry
