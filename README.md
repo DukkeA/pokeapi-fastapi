@@ -49,7 +49,11 @@ poetry install --with test,lint
 #### 2. Ejecutar migraciones
 El proyecto debe contar con una base de datos configurada en el archivo de variables de entorno .env
 ```
+# Option 1
 poetry run alembic upgrade head
+
+# Opcion 2
+poetry run python3 manage.py migrate
 ```
 #### 3. Inicializar servicio
 El servicio por defecto se inicia en el puerto 8000, para cambiar dicho puerto se debe editar la variable de entorno
@@ -71,7 +75,11 @@ pip install -r requirements.txt
 #### 2. Ejecutar migraciones
 El proyecto debe contar con una base de datos configurada en el archivo de variables de entorno .env
 ```
+# Option 1
 alembic upgrade head
+
+# Opcion 2
+python3 manage.py migrate
 ```
 #### 3. Inicializar servicio
 El servicio por defecto se inicia en el puerto 8000, para cambiar dicho puerto se debe editar la variable de entorno
@@ -101,7 +109,11 @@ docker-compose -f compose/with_db/docker-compose.yml up --build -d
 
 ### 2. Ejecutar migraciones
 ```
+# Opcion 1
 docker exec poke_api alembic upgrade head
+
+# Option 2
+docker exec poke_api python3 manage.py migrate
 ```
 
 #### 3. Ejecutar tests
