@@ -51,7 +51,7 @@ poetry install --with test,lint
 #### 2. Ejecutar migraciones
 El proyecto debe contar con una base de datos configurada en el archivo de variables de entorno .env
 ```
-# Option 1
+# Opcion 1
 poetry run alembic upgrade head
 
 # Opcion 2
@@ -81,7 +81,7 @@ pip install -r requirements.txt
 #### 2. Ejecutar migraciones
 El proyecto debe contar con una base de datos configurada en el archivo de variables de entorno .env
 ```
-# Option 1
+# Opcion 1
 alembic upgrade head
 
 # Opcion 2
@@ -122,7 +122,7 @@ docker-compose -f compose/with_db/docker-compose.yml up --build -d
 # Opcion 1
 docker exec poke_api alembic upgrade head
 
-# Option 2
+# Opcion 2
 docker exec poke_api python3 manage.py migrate
 ```
 
