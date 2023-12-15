@@ -133,6 +133,10 @@ docker-compose -f compose/tests/docker-compose.yml up --build -d
 
 ## Endpoints
 
+### Documentacion Openapi
+
+https://localhost:8000/docs
+
 ### Endpoint listado general de pokemons paginado
 ```
 GET http://localhost:8000/api/v1/pokemon?offset=0&limit=20
