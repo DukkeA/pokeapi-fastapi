@@ -3,7 +3,16 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/DukkeA/pokeapi-fastapi.git'  // Replace with your repository URL
+                withCredentials([string(credentialsId: 'token_pokeapi', variable: 'GITHUB_TOKEN')]) {
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], 
+                    doGenerateSubmoduleConfigurations: false, 
+                    extensions: [], 
+                    submoduleCfg: [], 
+                    userRemoteConfigs: [[
+                        credentialsId: 'token_pokeapi', 
+                        url: "https://github.com/DukkeA/pokeapi-fastapi.git"
+                    ]]])
+                }
             }
         }
 
