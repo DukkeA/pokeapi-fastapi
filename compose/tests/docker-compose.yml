@@ -4,7 +4,7 @@ services:
     build:
       context: ../../.
       dockerfile: ./compose/tests/Dockerfile
-    container_name: poke_api
+    container_name: poke_api-tests
     env_file:
       - ../../.env
     ports:
