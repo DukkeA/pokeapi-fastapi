@@ -1,6 +1,17 @@
 pipeline {
     agent any
     stages {
+        stage('Verify tooling') {
+            steps {
+                script {
+                    echo 'Verifying tooling'
+                    sh 'docker --version'
+                    sh 'docker-compose --version'
+                    echo 'Tooling verified successfully'
+                }
+            }
+        }
+
         stage('Checkout Code') {
             steps {
                 withCredentials([string(credentialsId: 'token_pokeapi', variable: 'GITHUB_TOKEN')]) {
