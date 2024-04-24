@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building Docker images'
-                    sh 'docker-compose -f compose/with_db/docker-compose.yml build'
+                    sh 'docker compose -f compose/with_db/docker-compose.yml build'
                     echo 'Docker images built successfully'
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests'
-                    sh 'docker-compose -f compose/tests/docker-compose.yml up --build'
+                    sh 'docker compose -f compose/tests/docker-compose.yml up --build'
                     echo 'Tests completed successfully'
                 }
             }
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying application'
-                    sh 'docker-compose -f compose/with_db/docker-compose.yml up --build -d'
+                    sh 'docker compose -f compose/with_db/docker-compose.yml up --build -d'
                     echo 'Application deployed successfully'
                 }
             }
@@ -50,7 +50,7 @@ pipeline {
     post {
         always {
             // Clean up Docker containers
-            sh 'docker-compose -f docker-compose.yml down'
+            sh 'docker compose -f docker-compose.yml down'
         }
     }
 }
