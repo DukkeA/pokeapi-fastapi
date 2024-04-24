@@ -32,8 +32,8 @@ pipeline {
             steps {
                 script {
                     echo 'Testing application'
-                    poetry install --with test
-                    poetry run pytest -vv
+                    sh 'poetry install --with test'
+                    sh 'poetry run pytest -vv'
                     echo 'Application tested successfully'
                 }
             }
