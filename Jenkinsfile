@@ -1,16 +1,15 @@
 pipeline {
     agent any
-    environment {
-        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-    }   
     stages {
-        stage('Verify tooling') {
+
+        stage('Prepare environment') {
             steps {
                 script {
-                    echo 'Verifying tooling'
-                    sh 'docker --version'
-                    sh 'docker-compose --version'
-                    echo 'Tooling verified successfully'
+                    echo 'Preparing environment'
+                    sh 'python3 --version'
+                    sh 'pip3 --version'
+                    sh 'pip3 install poetry'
+                    sh 'poetry --version'
                 }
             }
         }
@@ -30,12 +29,13 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
+        stage('Build application') {
             steps {
                 script {
-                    echo 'Building Docker images'
-                    sh 'docker compose -f compose/with_db/docker-compose.yml build'
-                    echo 'Docker images built successfully'
+                    echo 'Building application'
+                    poetry install
+                    poetry run python -m pytest
+                    echo 'Application built successfully'
                 }
             }
         }
