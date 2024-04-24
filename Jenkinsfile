@@ -8,7 +8,6 @@ pipeline {
                     echo 'Preparing environment'
                     sh 'python3 --version'
                     sh 'pip3 --version'
-                    sh 'pip3 install poetry'
                     sh 'poetry --version'
                 }
             }
