@@ -28,42 +28,14 @@ pipeline {
             }
         }
 
-        stage('Build application') {
-            steps {
-                script {
-                    echo 'Building application'
-                    poetry install
-                    poetry run python -m pytest
-                    echo 'Application built successfully'
-                }
-            }
-        }
-
         stage('Test') {
             steps {
                 script {
-                    echo 'Running tests'
-                    sh 'docker compose -f compose/tests/docker-compose.yml up --build'
-                    echo 'Tests completed successfully'
+                    echo 'Testing application'
+                    poetry install --with test
+                    poetry run pytest -vv
+                    echo 'Application tested successfully'
                 }
             }
         }
-
-        stage('Deploy') {
-            steps {
-                script {
-                    echo 'Deploying application'
-                    sh 'docker compose -f compose/with_db/docker-compose.yml up --build -d'
-                    echo 'Application deployed successfully'
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            // Clean up Docker containers
-            sh 'docker compose -f docker-compose.yml down'
-        }
-    }
 }
